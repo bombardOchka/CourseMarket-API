@@ -1,0 +1,732 @@
+{
+	"info": {
+		"_postman_id": "ff12ea84-1217-49d8-b7a1-3a0cb1cee580",
+		"name": "CourseMarket",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33455627"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\": \"test_user@gmail.com\",\r\n    \"password\": \"qwerty1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"if(jsonData){\r",
+									"    let accesToken = jsonData.acces_token\r",
+									"\r",
+									"    pm.collectionVariables.set(\"ACCES_TOKEN\", `Bearer ${accesToken}`)\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\": \"test_user@gmail.com\",\r\n    \"password\": \"qwerty1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "review",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Test\",\r\n    \"title\": \"Title\",\r\n    \"description\": \"Desc test\",\r\n    \"rating\": 4,\r\n    \"productId\": \"669d41a04b16e6e9bb5c6c8f\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/review/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"review",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCES_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/review/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"review",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "66b8662ee9d1a4debd03c0ea"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteByProductId",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCES_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/review/deleteByProductId/:productId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"review",
+								"deleteByProductId",
+								":productId"
+							],
+							"variable": [
+								{
+									"key": "productId",
+									"value": "669d41a04b16e6e9bb5c6c8f"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByProduct",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCES_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/review/findByProduct/:productId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"review",
+								"findByProduct",
+								":productId"
+							],
+							"variable": [
+								{
+									"key": "productId",
+									"value": "669ce68e1ab61daa5c0705e9"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "notify",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Test\",\r\n    \"title\": \"title\",\r\n    \"description\": \"Description\",\r\n    \"rating\": 5,\r\n    \"productId\": \"669d41a04b16e6e9bb5c6c8f\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/review/notify",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"review",
+								"notify"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByCategory",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"category\": \"test\",\r\n\t\"limit\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/product/find",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"product",
+								"find"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "product",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCES_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"image\": \"1.png\",\r\n\t\"title\": \"My product\",\r\n\t\"price\": 100,\r\n\t\"oldPrice\": 120,\r\n\t\"credit\": 10,\r\n\t\"description\": \"Product description\",\r\n\t\"advantages\": \"Product advantages\",\r\n\t\"disAdvantages\": \"Product disAdvantages\",\r\n\t\"categories\": [\"test\"],\r\n\t\"tags\": [\"tag1\"],\r\n\t\"characteristics\": [{\r\n\t\t\"name\": \"Characteristic 1\",\r\n\t\t\"value\": \"1\"\r\n\t},{\r\n\t\t\"name\": \"Characteristic 2\",\r\n\t\t\"value\": \"2\"\r\n\t}]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/product/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"product",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCES_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"image\": \"2.png\",\r\n\t\"title\": \"My product upd\",\r\n\t\"price\": 100,\r\n\t\"oldPrice\": 120,\r\n\t\"credit\": 10,\r\n\t\"description\": \"Product description upd\",\r\n\t\"advantages\": \"Product advantages upd\",\r\n\t\"disAdvantages\": \"Product disAdvantages upd\",\r\n\t\"categories\": [\"test\"],\r\n\t\"tags\": [\"tag1\"],\r\n\t\"characteristics\": [{\r\n\t\t\"name\": \"Characteristic 1\",\r\n\t\t\"value\": \"1\"\r\n\t},{\r\n\t\t\"name\": \"Characteristic 2\",\r\n\t\t\"value\": \"2\"\r\n\t}]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/product/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"product",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "66b868d9e9d1a4debd03c0ef"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCES_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/product/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"product",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "66b868e1e9d1a4debd03c0f1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCES_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/product/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"product",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "66b868e1e9d1a4debd03c0f1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "top-page",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCES_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"firstLevelCategory\": 2,\r\n\t\"secondCategory\": \"Cloud\",\r\n\t\"alias\": \"hosting\",\r\n\t\"title\": \"FirstVDS\",\r\n\t\"category\": \"javascript\",\r\n\t\"hh\": {\r\n\t\t\"count\": 1000,\r\n\t\t\"juniorSalary\": 120000,\r\n\t\t\"middleSalary\": 220000,\r\n\t\t\"seniorSalary\": 350000\r\n\t},\r\n\t\"advantages\": [{\r\n\t\t\"title\": \"Speed of development\",\r\n\t\t\"description\": \"My description\"\r\n\t}],\r\n\t\"seoText\": \"test\",\r\n\t\"tagsTitle\": \"Gained Knowledge\",\r\n\t\"tags\": [\"TypeScript\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/top-page/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"top-page",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCES_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"firstLevelCategory\": 2,\r\n\t\"secondCategory\": \"Cloud upd\",\r\n\t\"alias\": \"hosting\",\r\n\t\"title\": \"FirstVDS upd\",\r\n\t\"category\": \"javascript\",\r\n\t\"hh\": {\r\n\t\t\"count\": 1000,\r\n\t\t\"juniorSalary\": 120000,\r\n\t\t\"middleSalary\": 220000,\r\n\t\t\"seniorSalary\": 350000\r\n\t},\r\n\t\"advantages\": [{\r\n\t\t\"title\": \"Speed of development upd\",\r\n\t\t\"description\": \"My description upd\"\r\n\t}],\r\n\t\"seoText\": \"test upd\",\r\n\t\"tagsTitle\": \"Gained Knowledge\",\r\n\t\"tags\": [\"TypeScript\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/top-page/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"top-page",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "66b86c2fe9d1a4debd03c103"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCES_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/top-page/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"top-page",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "66b86c2fe9d1a4debd03c103"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCES_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/top-page/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"top-page",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "66b86c2fe9d1a4debd03c103"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getByAlias",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCES_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/top-page/byAlias/:alias",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"top-page",
+								"byAlias",
+								":alias"
+							],
+							"variable": [
+								{
+									"key": "alias",
+									"value": "hosting"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "textSearch",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCES_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/top-page/textSearch/:text",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"top-page",
+								"textSearch",
+								":text"
+							],
+							"variable": [
+								{
+									"key": "text",
+									"value": "javascript"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByFirstCategory",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImR3YWR3YWRkQGdtYWlsLmNvbSIsImlhdCI6MTcyMTY2NjE0MX0.vo0GXThEy-mzuMH-_5IpGRx3etOn2Y3eNgIe7TA1UVs",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstCategory\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/top-page/find",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"top-page",
+								"find"
+							],
+							"query": [
+								{
+									"key": "Authorization",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImR3YWR3YWRkQGdtYWlsLmNvbSIsImlhdCI6MTcyMTY2NjE0MX0.vo0GXThEy-mzuMH-_5IpGRx3etOn2Y3eNgIe7TA1UVs",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "API_URL",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "ACCES_TOKEN",
+			"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RfdXNlckBnbWFpbC5jb20iLCJpYXQiOjE3MjMzNjAwNzF9.ETRrPBPJoDYqGFNS7PW8L5vCOjQfO64mdEDmpJZflJ8",
+			"type": "string"
+		}
+	]
+}

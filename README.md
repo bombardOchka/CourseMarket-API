@@ -3,6 +3,7 @@
 
 # Create .env file with this properties
 
+```env
 MONGO_LOGIN=your_mongo_login
 MONGO_PASSWORD=your_mongo_password
 MONGO_HOST=your_mongo_host
